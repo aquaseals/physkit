@@ -58,6 +58,10 @@ function totalDisplacement(...args) {
     let y = 0;
     let finalAngle = ''
 
+    if (displacements.length === 1 || angles.length === 1) {
+        return [displacements[0], angles[0]]
+    }
+
     console.log(`displacements -> ${displacements}\nangles -> ${angles}`)
 
     for (let i=0; i<displacements.length; i++) {
@@ -163,33 +167,7 @@ function totalDisplacement(...args) {
             finalAngle = "S"
             break
     }
-    
-    // if (x > 0 && y > 0) { // top right quadrant
-    //     finalAngle = `E ${displacementAngle} N`
 
-    // } else if (x < 0 && y < 0) { // bottom left quadrant
-    //     //displacementAngle = 180 - displacementAngle
-    //     finalAngle = `W ${displacementAngle} S`
-
-    // } else if (x > 0 && y < 0) { //bottom right quadrant
-    //     if (displacementAngle > 90) { 
-    //         displacementAngle = 270 - displacementAngle
-    //         finalAngle = `S ${displacementAngle} E`
-    //     } else if (displacementAngle < 0) {
-    //         displacementAngle = Math.abs(displacementAngle)
-    //         finalAngle = `E ${displacementAngle} S`
-    //     }
-        
-    // } else if (x < 0 && y > 0) { // top left quadrant
-    //      if (displacementAngle > 90) {
-    //         displacementAngle = 180 - displacementAngle
-    //         finalAngle = `N ${displacementAngle} W`
-    //     } else if (displacementAngle < 0) {
-    //         displacementAngle = Math.abs(displacementAngle)
-    //         finalAngle = `W ${displacementAngle} N`
-    //     }
-        
-    // }
     return [resultantDisplacement, finalAngle]
 }
 
