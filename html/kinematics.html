@@ -31,6 +31,30 @@
         </div>
 
         <div id="page">
+            <p>When typing in the direction of vectors follow this format to get the right answers! (otherwise answer is always 0 lol)</p>
+            <p><b>Note</b>: letters can be typed in upper or lower case!</p>
+            <ol>
+                <li>Type in Magnitude</li>
+
+                <li>
+                    <h4>Vector at an Angle?</h4>
+                <ol>
+                    <li>Type in starting direction, N/E/S/W, then space</li>
+                    <li>Type in the angle of the vector, space</li>
+                    <li>Type in the direction the angle is going towards form the starting point N/E/S/W</li>
+                </ol>
+                    <p><b>Note</b>: Make sure your directions are perpendicular to each other (e.x. N 30 S is not an eligible angle)</p>
+                </li>
+
+                <li>
+                    <h4>Direction just N/E/S/W?</h4>
+                    <p>Type in direction, N/E/S/W</p>
+                </li>
+            </ol>
+
+            <p><b>Wrong</b>: S30W or 90 SW or E 90 W</p>
+            <p><b>Correct</b>: e 20 N or S 63.3 E or w 42 n </p>
+
             <div>
             <h3 class="subheading">Displacement, Distance and Othe Scalar Quantities</h3>
 
@@ -49,40 +73,14 @@
             <h3>Change in distance/time/any scalar quantity really</h3>
             
             <div class="inputs" id="delta">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
+                <input type="number" min="0" step=".0001" placeholder="A">
+                <input type="number" min="0" step=".0001" placeholder="B">
             </div>
 
-            <textarea name="" id="deltaAnswer" placeholder="change in magnitude"></textarea>
+            <textarea name="" id="deltaAnswer" placeholder="change in magnitude (B - A)"></textarea>
 
 
             <h3>Total Displacement</h3>
-
-            <p>When typing in the direction of the displacement follow this format to get the right answers! (otherwise answer is always 0 displacement lol)</p>
-            <p>Note: letters can be typed in upper or lower case!</p>
-            <ol>
-                <li>Type in Magnitude</li>
-
-                <li>
-                    <h4>Displacement at an Angle?</h4>
-        
-                <ol>
-                    <li>Type in starting direction, N/E/S/W, then space</li>
-                    <li>Type in the angle of the vector, space</li>
-                    <li>Type in the direction the angle is going towards form the starting point N/E/S/W</li>
-                </ol>
-                    <p>Note: Make sure your directions are perpendicular to each other (e.x. N 30 S is not an eligible angle)</p>
-                </li>
-
-                <li>
-                    <h4>Direction just N/E/S/W?</h4>
-                    <p>Type in direction, N/E/S/W</p>
-                </li>
-            </ol>
-
-            <p>Wrong: S30W or 90 SW or E 90 W</p>
-            <p>Correct: e 20 N or S 63.3 E or w 42 n </p>
-            
 
             <input type="number" min="2" id="numOfVectors" placeholder="how many magnitudes are you adding?">
 
@@ -106,18 +104,20 @@
             <h3>Average Speed</h3>
 
             <div class="inputs" id="aSpeed">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
+                <input type="number" min="0" step=".0001" placeholder="distance">
+                <input type="number" min="0" step=".0001" placeholder="delta time">
             </div>
 
             <textarea name="" id="averageSAnswer" placeholder="average speed"></textarea>
 
             <h3>Average Velocity</h3>
 
+            <p><b>Note</b>: Formula assumes acceleration is <b>0</b> </p>
+
             <div class="inputs" id="aVelocity">
-                <input type="number" min="0" step=".0001">
+                <input type="number" min="0" step=".0001" placeholder="magnitude">
                 <input type="text" step="1" id="angle" placeholder="direction"> 
-                <input type="number" min="0" step=".0001">
+                <input type="number" min="0" step=".0001" placeholder="delta time">
             </div>
 
             <textarea name="" id="averageVAnswer" placeholder="average velocity"></textarea>
@@ -126,64 +126,33 @@
             <h3>Average Acceleration</h3>
 
             <div class="inputs" id="aAcceleration">
-                <input type="number" min="0" step=".0001">
+                <input type="number" min="0" step=".0001" placeholder="magnitude">
                 <input type="text" step="1" id="angle" placeholder="direction"> 
-                <input type="number" min="0" step=".0001">
+                <input type="number" min="0" step=".0001" placeholder="delta time">
             </div>
 
             <textarea name="" id="averageAAnswer" placeholder="average acceleration"></textarea>
 
 
             <div>
-            <h3 class="subheading">Kinematic Equations (in my personal order)</h3>
+            <h3 class="subheading">Kinematic Equations</h3>
 
-            <h3>Kinematic Equation 1</h3>
-            <div class="inputs">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
+            <p>Write all known values, then type '?' for unknown you want to find and 'm' for the value thats not part of your calculation at all</p>
+
+            <div class="inputs" id="kinematicEInputs">
+                <input type="text" min="0" step=".0001" placeholder="distance/displacement">
+                <input type="text" min="0" step=".0001" placeholder="delta time">
+                <input type="text" min="0" step=".0001" placeholder="intial speed/velocity">
+                <input type="text" min="0" step=".0001" placeholder="final speed/velocity">
+                <input type="text" min="0" step=".0001" placeholder="acceleration">
             </div>
 
-            <h3>Kinematic Equation 2</h3>
+            <textarea name="" id="kinematicEAnswer"></textarea>
 
-            <div class="inputs">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-            </div>
-
-            <h3>Kinematic Equation 3</h3>
-
-            <div class="inputs">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-            </div>
-
-            <h3>Kinematic Equation 4</h3>
-
-            <div class="inputs">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-            </div>
-
-            <h3>Kinematic Equation 5</h3>
-
-            <div class="inputs">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
-                <input type="number" min="0" step=".0001">
+            <div id="formulas">
+                <p>Kinematic Equation Formulas</p>
+                <p><b>Note</b>: Equation 1 assumes acceleration is <b>constant</b> </p>
+                <img src="../assets/equationsTable.png" alt="table of kinematic equations">
             </div>
         </div> <!-- end of page div -->
 

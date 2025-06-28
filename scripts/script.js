@@ -237,13 +237,13 @@ function kinematicEquation1(variables, unknown) { // [d, t, vi, vf]
 
     switch (unknown) {
         case 'd':
-            return ((vf+vi)/2)*t
+            return `${((vf+vi)/2)*t} units`
         case 't':
-            return ((2*d)/(vf+vi))
+            return `${((2*d)/(vf+vi))} unit time`
         case 'vf':
-            return (2*(d/t))-vi
+            return `${(2*(d/t))-vi} units per unit time`
         case 'vi':
-            return (2*(d/t))-vf
+            return `${(2*(d/t))-vf} units per unit time`
     }
 
 }
@@ -256,13 +256,13 @@ function kinematicEquation2(variables, unknown) { // [t, vi, vf, a]
 
     switch (unknown) {
         case 't':
-            return (vf-vi)/a
+            return `${(vf-vi)/a} unit time`
         case 'vi':
-            return vf - (a*t)
+            return `${vf - (a*t)} units per unit time`
         case 'vf':
-            return vi + (a*t)
+            return `${vi + (a*t)} units per unit time`
         case 'a':
-            return (vf-vi)/t
+            return `${(vf-vi)/t} units per unit time squared`
     }
 
 }
@@ -275,7 +275,7 @@ function kinematicEquation3(variables, unknown) { // [d, t, vi, a]
 
     switch (unknown) {
         case 'd':
-            return (vi*t) + (0.5*a*t*t)
+            return `${(vi*t) + (0.5*a*t*t)} units`
         case 't':
             let x1 = zeros(0.5*a, vi, -1*d)[0]
             let x2 = zeros(0.5*a, vi, -1*d)[1]
@@ -287,9 +287,9 @@ function kinematicEquation3(variables, unknown) { // [d, t, vi, a]
                 return x2
             }
         case 'a':
-            return (d-(vi*t))/(0.5*t*t)
+            return `${(d-(vi*t))/(0.5*t*t)} units per unit time squared`
         case 'vi':
-            return (d - (0.5*a*t*t))/t
+            return `${(d - (0.5*a*t*t))/t} units per unit time`
     }
 
 }
@@ -302,13 +302,13 @@ function kinematicEquation4(variables, unknown) { // [d, vi, vf, a]
 
     switch (unknown) {
         case 'd':
-            return ((vf*vf)-(vi*vi))/(2*a)
+            return `${((vf*vf)-(vi*vi))/(2*a)} units`
         case 'vf':
-            return Math.sqrt((vi*vi)+(2*a*d))
+            return `${Math.sqrt((vi*vi)+(2*a*d))} units per unit time`
         case 'a':
-            return ((vf*vf)-(vi*vi))/(2*d)
+            return `${((vf*vf)-(vi*vi))/(2*d)} units per unit time squared`
         case 'vi':
-            return Math.sqrt((vf*vf) - (2*a*d))
+            return `${Math.sqrt((vf*vf) - (2*a*d))} units per unit time`
     }
 
 }
@@ -321,11 +321,11 @@ function kinematicEquation5(variables, unknown) { // [d, t, vf, a]
 
     switch (unknown) {
         case 'd':
-            return (vf*t) - (0.5*a*t*t)
+            return `${(vf*t) - (0.5*a*t*t)} units`
         case 'vf':
-            return (d + (0.5*a*t*t))/t
+            return `${(d + (0.5*a*t*t))/t} units per unit time`
         case 'a':
-            return (d-(vf*t))/(-0.5*t*t)
+            return `${(d-(vf*t))/(-0.5*t*t)} units per unit time squared`
         case 't':
             let x1 = zeros(0.5*a, vf*-1, d)[0]
             let x2 = zeros(0.5*a, vf*-1, d)[1]
@@ -395,7 +395,7 @@ totalMags.addEventListener("input", function handleTotal(event){
 
     if (m.length === inputs.length) {
         let answer = total(m)
-        document.getElementById('totalAnswer').innerHTML = `${answer} in whatever unit they originally were`
+        document.getElementById('totalAnswer').innerHTML = `${answer} units`
     }
 })
 
@@ -414,7 +414,7 @@ deltaDiv.addEventListener("input", function handleDelta(event){
 
     if (m.length === inputs.length) {
         let answer = delta(m[0], m[1])
-        document.getElementById('deltaAnswer').innerHTML = `${answer} in whatever unit they originally were`
+        document.getElementById('deltaAnswer').innerHTML = `${answer} units`
     }
 })
 
@@ -464,7 +464,7 @@ tdInputs.addEventListener("input", function handleDisplacements(event){
 
 let aSpeed = document.getElementById('aSpeed')
 
-aSpeed.addEventListener("input", function handleDelta(event){
+aSpeed.addEventListener("input", function handleASpeed(event){
     let inputs = aSpeed.children
     let m = []
     for(let i=0; i<inputs.length; i++) {
@@ -477,13 +477,13 @@ aSpeed.addEventListener("input", function handleDelta(event){
 
     if (m.length === inputs.length) {
         let answer = perTime(m[0], "", m[1])
-        document.getElementById('averageSAnswer').innerHTML = `${answer}`
+        document.getElementById('averageSAnswer').innerHTML = `${answer} units per unit time`
     }
 })
 
 let aVelocity = document.getElementById('aVelocity')
 
-aVelocity.addEventListener("input", function handleDelta(event){
+aVelocity.addEventListener("input", function handleAVelocity(event){
     let inputs = aVelocity.children
     let m = []
     for(let i=0; i<inputs.length; i++) {
@@ -496,13 +496,13 @@ aVelocity.addEventListener("input", function handleDelta(event){
 
     if (m.length === inputs.length) {
         let answer = perTime(m[0], m[1], m[2])
-        document.getElementById('averageVAnswer').innerHTML = `${answer} `
+        document.getElementById('averageVAnswer').innerHTML = `${answer[0]} units [${answer[1]}] per unit time`
     }
 })
 
 let aAcceleration = document.getElementById('aAcceleration')
 
-aAcceleration.addEventListener("input", function handleDelta(event){
+aAcceleration.addEventListener("input", function handleAAcceleration(event){
     let inputs = aAcceleration.children
     let m = []
     for(let i=0; i<inputs.length; i++) {
@@ -515,10 +515,42 @@ aAcceleration.addEventListener("input", function handleDelta(event){
 
     if (m.length === inputs.length) {
         let answer = perTime(m[0], m[1], m[2])
-        document.getElementById('averageAAnswer').innerHTML = `${answer}`
+        document.getElementById('averageAAnswer').innerHTML = `${answer[0]} units [${answer[1]}] per unit time squared`
     }
 })
 
+let kinematicEInputs = document.getElementById('kinematicEInputs')
+
+kinematicEInputs.addEventListener("input", function handleKinematicE(event){
+    let inputs = kinematicEInputs.children
+    let m = []
+    for(let i=0; i<inputs.length; i++) {
+        if (inputs[i].value === "") {
+            console.log(`an input is empty, must be filled to calculate`)
+        } else {
+            m.push(inputs[i].value)
+        }
+    }
+
+    if (m.length === inputs.length) {
+        let variables = []
+        for(let i=0; i<m.length; i++) {
+            try {
+                let temp = Number(m[i])
+                variables.push(temp)
+            } catch (err) {
+                console.log(`not a number`)
+                variables.push(m[i])
+            }
+        }
+        let answer = kinematicEquation(variables[0], variables[1], variables[2], variables[3], variables[4])
+        if (typeof(answer) === "Array") { // checking for t1 and t2 answers
+            document.getElementById('kinematicEAnswer').innerHTML = `t1=${answer[0]} t2=${answer[1]}`
+        } else {
+            document.getElementById('kinematicEAnswer').innerHTML = `${answer}`
+        }
+    }
+})
 
 
 

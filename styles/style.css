@@ -106,3 +106,9 @@ h2 {
 .subheading {
     text-decoration: underline;
 }
+
+#formulas img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 4vh;
+}
