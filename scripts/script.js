@@ -177,7 +177,7 @@ function perTime(magnitude, direction, deltaTime) {
     if(direction.length === 0) {
         return averagePerTime
     } else {
-        return {averagePerTime, direction}
+        return [averagePerTime, direction]
     }
 }
 
@@ -459,6 +459,63 @@ tdInputs.addEventListener("input", function handleDisplacements(event){
     if (magnitudes.length === inputs.length && directions.length === inputs.length) {
         let answer = totalDisplacement(magnitudes, directions)
         document.getElementById('tdAnswer').innerHTML = `${answer[0]} units ${answer[1]}`
+    }
+})
+
+let aSpeed = document.getElementById('aSpeed')
+
+aSpeed.addEventListener("input", function handleDelta(event){
+    let inputs = aSpeed.children
+    let m = []
+    for(let i=0; i<inputs.length; i++) {
+        if (inputs[i].value === "") {
+            console.log(`an input is empty, must be filled to calculate`)
+        } else {
+            m.push(inputs[i].value)
+        }
+    }
+
+    if (m.length === inputs.length) {
+        let answer = perTime(m[0], "", m[1])
+        document.getElementById('averageSAnswer').innerHTML = `${answer}`
+    }
+})
+
+let aVelocity = document.getElementById('aVelocity')
+
+aVelocity.addEventListener("input", function handleDelta(event){
+    let inputs = aVelocity.children
+    let m = []
+    for(let i=0; i<inputs.length; i++) {
+        if (inputs[i].value === "") {
+            console.log(`an input is empty, must be filled to calculate`)
+        } else {
+            m.push(inputs[i].value)
+        }
+    }
+
+    if (m.length === inputs.length) {
+        let answer = perTime(m[0], m[1], m[2])
+        document.getElementById('averageVAnswer').innerHTML = `${answer} `
+    }
+})
+
+let aAcceleration = document.getElementById('aAcceleration')
+
+aAcceleration.addEventListener("input", function handleDelta(event){
+    let inputs = aAcceleration.children
+    let m = []
+    for(let i=0; i<inputs.length; i++) {
+        if (inputs[i].value === "") {
+            console.log(`an input is empty, must be filled to calculate`)
+        } else {
+            m.push(inputs[i].value)
+        }
+    }
+
+    if (m.length === inputs.length) {
+        let answer = perTime(m[0], m[1], m[2])
+        document.getElementById('averageAAnswer').innerHTML = `${answer}`
     }
 })
 
