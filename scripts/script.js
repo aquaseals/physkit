@@ -56,19 +56,54 @@ function totalDisplacement(...args) {
     let angles = args[1]
     let x = 0;
     let y = 0;
+    let finalAngle = ''
 
     console.log(`displacements -> ${displacements}\nangles -> ${angles}`)
 
     for (let i=0; i<displacements.length; i++) {
         if(angles[i].length > 1) {
+            let start = angles[i].split(" ")[0]
             let angle = angles[i].split(" ")[1]
+            let end = angles[i].split(" ")[2]
             console.log(`angle number -> ${angle}`)
+
+            //switching angle direction around so it starts with N/S
+            if(start === "W") {
+                start = end
+                end = "W"
+                angle = 90 - angle 
+                console.log(start, angle, end)
+            } else if (start === "E") {
+                start = end
+                end = "E"
+                angle = 90 - angle
+                console.log(start, angle, end)
+            }
+
             let cos =  Math.cos(degreesToRadians(angle))
             let sin =  Math.sin(degreesToRadians(angle))
-            x += sin*displacements[i]
-            y += cos*displacements[i]
+
+            if (start === "N") {
+                if (end === "E") {
+                    x += sin*displacements[i]
+                    y += cos*displacements[i]
+                } else if (end === "W") {
+                    x -= sin*displacements[i]
+                    y += cos*displacements[i]
+                }
+            } else if (start === "S") {
+                if (end === "E") {
+                    x += sin*displacements[i]
+                    y -= cos*displacements[i]
+                } else if (end === "W") {
+                    x -= sin*displacements[i]
+                    y -= cos*displacements[i]
+                }
+            }
+
         } else if(angles[i].length === 1) {
             let angle = angles[i]
+            finalAngle = angle
             let displacement = displacements[i]
             switch (angle) {
                 case "N":
@@ -87,7 +122,46 @@ function totalDisplacement(...args) {
         }
         console.log(`total x -> ${x}\ntotal y -> ${y}`)
     }
-    return [x, y]
+    let resultantDisplacement = Math.sqrt((x*x) + (y*y))
+    if (resultantDisplacement === 0 || resultantDisplacement < 0.0001) {
+        return [0, 'no displacement']
+    }
+
+    let displacementAngle =  radiansToDegrees(Math.atan(y/x))
+
+    console.log(displacementAngle)
+    
+    if (x > 0 && y > 0) { // top right quadrant
+        finalAngle = `E ${displacementAngle} N`
+        console.log(finalAngle)
+    } else if (x < 0 && y < 0) { // bottom left quadrant
+        //displacementAngle = 180 - displacementAngle
+        finalAngle = `W ${displacementAngle} S`
+        console.log(finalAngle)
+    } else if (x > 0 && y < 0) { //bottom right quadrant
+        if (displacementAngle < 0) {
+            displacementAngle = Math.abs(displacementAngle)
+            finalAngle = `E ${displacementAngle} S`
+             console.log(finalAngle)
+
+        } else if (displacementAngle > 90) { 
+            displacementAngle = 270 - displacementAngle
+            finalAngle = `S ${displacementAngle} E`
+            console.log(finalAngle)
+
+        }
+        
+    } else if (x < 0 && y > 0) { // top left quadrant
+        if (displacementAngle < 0) {
+            displacementAngle = Math.abs(displacementAngle)
+            finalAngle = `W ${displacementAngle} N`
+        } else if (displacementAngle > 90) {
+            displacementAngle = 180 - displacementAngle
+            finalAngle = `N ${displacementAngle} W`
+        }
+        
+    }
+    return [resultantDisplacement, finalAngle]
 }
 
 function perTime(magnitude, direction, deltaTime) {
