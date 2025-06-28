@@ -145,6 +145,26 @@ function kinematicEquation(d, t, vi, vf, a) {
     }
 }
 
+function kinematicEquation1(variables, unknown) { // [d, t, vi, vf]
+    let d = variables[0]
+    let t = variables[1]
+    let vi = variables[2]
+    let vf = variables[3]
+
+    switch (unknown) {
+        case 'd':
+            return ((vf+vi)/2)*t
+        case 't':
+            return ((2*d)/(vf+vi))
+        case 'vf':
+            return (2*(d/t))-vi
+        case 'vi':
+            return (2*(d/t))-vf
+    }
+
+}
+
+
 function whichVIsUnknown(variableArray) {
     for(let i=0; i<variableArray.length; i++) {
         if(variableArray[i] === "?") {
@@ -152,5 +172,7 @@ function whichVIsUnknown(variableArray) {
         }
     }
 }
+
+
 
 
