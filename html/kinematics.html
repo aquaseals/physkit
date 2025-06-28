@@ -58,16 +58,21 @@
 
             <h3>Total Displacement</h3>
 
-            <div class="inputs">
-                <input type="number" min="0" step=".0001"> <!-- num of inputs -->
+            <input type="number" min="2" id="numOfVectors" placeholder="how many magnitudes are you adding?">
 
+            <div class="inputs" id="tdInputs">
                 <div class="displacement-input">
                 <input type="number" min="0" step=".0001">
                 <input type="text" step="1" id="angle" placeholder="E 60 S - format or just N/S/W/E if not at an angle"> 
                 </div>
 
-                <textarea name="" id="" placeholder="total displacement"></textarea>
+                <div class="displacement-input">
+                <input type="number" min="0" step=".0001">
+                <input type="text" step="1" id="angle" placeholder="E 60 S - format or just N/S/W/E if not at an angle"> 
+                </div>
             </div>
+
+            <textarea name="" id="tdAnswer" placeholder="total displacement"></textarea>
 
             <div>
             <h3 class="subheading" >Velocity, Speed and Acceleration</h3>

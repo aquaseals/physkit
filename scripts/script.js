@@ -87,7 +87,7 @@ function totalDisplacement(...args) {
         }
         console.log(`total x -> ${x}\ntotal y -> ${y}`)
     }
-    return {x, y}
+    return [x, y]
 }
 
 function perTime(magnitude, direction, deltaTime) {
@@ -335,6 +335,50 @@ deltaDiv.addEventListener("input", function handleDelta(event){
         document.getElementById('deltaAnswer').innerHTML = `${answer} in whatever unit they originally were`
     }
 })
+
+let numOfVectors = document.getElementById('numOfVectors')
+let tdInputs = document.getElementById('tdInputs')
+
+numOfVectors.addEventListener('input', function addInputs(event){
+    while (tdInputs.firstChild !== null) {
+        tdInputs.removeChild(tdInputs.lastChild)
+    }
+    let amtToAdd = Number(event.target.value)
+    if (amtToAdd > 0) {
+        console.log(amtToAdd)
+        for (let i=0; i<amtToAdd; i++) {
+        let input = document.createElement('div')
+        input.innerHTML = `<input type="number" min="0" step=".0001">
+                           <input type="text" step="1" id="angle" placeholder="E 60 S - format or just N/S/W/E if not at an angle"> `
+        input.class = 'displacement-input'
+        tdInputs.appendChild(input)
+        }
+    }
+})
+
+tdInputs.addEventListener("input", function handleDisplacements(event){
+    let inputs = tdInputs.querySelectorAll('.displacement-input')
+    let magnitudes = []
+    let directions = []
+
+    for(let i=0; i<inputs.length; i++) {
+        let magnitude = inputs[i].querySelector('input[type="number"]')
+        let direction = inputs[i].querySelector('input[type="text"]')
+
+        if (magnitude.value === "" || direction.value === "") {
+            console.log(`an input is empty, must be filled to calculate`)
+        } else {
+            magnitudes.push(parseFloat(magnitude.value))
+            directions.push(direction.value)
+        }
+    }
+
+    if (magnitudes.length === inputs.length && directions.length === inputs.length) {
+        let answer = totalDisplacement(magnitudes, directions)
+        document.getElementById('tdAnswer').innerHTML = `${answer[0]}m ${answer[1]}`
+    }
+})
+
 
 
 
