@@ -23,10 +23,12 @@ document.addEventListener('scroll', function(){
     yScroll = window.scrollY
 })
 
-function total(...magnitudes) {
-    let total;
+// Kinematics Functions
+
+function total(magnitudes) {
+    let total = 0
     for(let i=0; i<magnitudes.length; i++) {
-        total += magnitudes[i]
+        total += Number(magnitudes[i])
     }
     return total
 }
@@ -256,9 +258,6 @@ function kinematicEquation5(variables, unknown) { // [d, t, vf, a]
 
 }
 
-
-
-
 function whichVIsUnknown(variableArray) {
     for(let i=0; i<variableArray.length; i++) {
         if(variableArray[i] === "?") {
@@ -279,4 +278,44 @@ function zeros(a, b, c) {
 
 }
 
+// Kinematics Logic
+let numOfMagnitudes = document.getElementById('numOfMagnitudes')
+let totalMags = document.getElementById('totalMags')
 
+numOfMagnitudes.addEventListener('input', function addInputs(event){
+    while (totalMags.firstChild !== null) {
+        totalMags.removeChild(totalMags.lastChild)
+    }
+    let amtToAdd = Number(event.target.value)
+    if (amtToAdd > 0) {
+        console.log(amtToAdd)
+        for (let i=0; i<amtToAdd; i++) {
+        let input = document.createElement('input')
+        input.min = "0"
+        input.type = "number"
+        input.step = ".0001"
+        input.placeholder = "another magnitude"
+        totalMags.appendChild(input)
+        }
+    }
+})
+
+totalMags.addEventListener("input", function handleTotal(event){
+    let inputs = totalMags.children
+    let m = []
+    for(let i=0; i<inputs.length; i++) {
+        if (inputs[i].value === 0) {
+            console.log(`an input is empty, must be filled to calculate`)
+        } else {
+            m.push(inputs[i].value)
+        }
+    }
+
+    if (m.length === inputs.length) {
+        let answer = total(m)
+        document.getElementById('totalAnswer').innerHTML = `${answer} in whatever unit they originally were`
+    }
+})
+
+
+// Dynamics Functions coming soon
