@@ -130,37 +130,66 @@ function totalDisplacement(...args) {
     let displacementAngle =  radiansToDegrees(Math.atan(y/x))
 
     console.log(displacementAngle)
-    
-    if (x > 0 && y > 0) { // top right quadrant
-        finalAngle = `E ${displacementAngle} N`
-        console.log(finalAngle)
-    } else if (x < 0 && y < 0) { // bottom left quadrant
-        //displacementAngle = 180 - displacementAngle
-        finalAngle = `W ${displacementAngle} S`
-        console.log(finalAngle)
-    } else if (x > 0 && y < 0) { //bottom right quadrant
-        if (displacementAngle < 0) {
-            displacementAngle = Math.abs(displacementAngle)
-            finalAngle = `E ${displacementAngle} S`
-             console.log(finalAngle)
 
-        } else if (displacementAngle > 90) { 
-            displacementAngle = 270 - displacementAngle
-            finalAngle = `S ${displacementAngle} E`
-            console.log(finalAngle)
-
-        }
-        
-    } else if (x < 0 && y > 0) { // top left quadrant
-        if (displacementAngle < 0) {
+    if (y > 0) {
+        if (x > 0) {
+            finalAngle = `N ${displacementAngle} E`
+        } else if (x < 0) {
             displacementAngle = Math.abs(displacementAngle)
-            finalAngle = `W ${displacementAngle} N`
-        } else if (displacementAngle > 90) {
-            displacementAngle = 180 - displacementAngle
             finalAngle = `N ${displacementAngle} W`
         }
-        
+
+    } else if (y < 0) {
+        if (x > 0) {
+            displacementAngle = Math.abs(displacementAngle)
+            finalAngle = `S ${displacementAngle} E`
+        } else if (x < 0) {
+            finalAngle = `S ${displacementAngle} W`
+            
+        }
     }
+
+    switch (String(displacementAngle)) {
+        case "-0": // dont ask how -0 happens i ave no clue
+            finalAngle = "W"
+            break
+        case "90":
+            finalAngle = "N"
+            break
+        case "0":
+            finalAngle = "E"
+            break
+        case "-90":
+            finalAngle = "S"
+            break
+    }
+    
+    // if (x > 0 && y > 0) { // top right quadrant
+    //     finalAngle = `E ${displacementAngle} N`
+
+    // } else if (x < 0 && y < 0) { // bottom left quadrant
+    //     //displacementAngle = 180 - displacementAngle
+    //     finalAngle = `W ${displacementAngle} S`
+
+    // } else if (x > 0 && y < 0) { //bottom right quadrant
+    //     if (displacementAngle > 90) { 
+    //         displacementAngle = 270 - displacementAngle
+    //         finalAngle = `S ${displacementAngle} E`
+    //     } else if (displacementAngle < 0) {
+    //         displacementAngle = Math.abs(displacementAngle)
+    //         finalAngle = `E ${displacementAngle} S`
+    //     }
+        
+    // } else if (x < 0 && y > 0) { // top left quadrant
+    //      if (displacementAngle > 90) {
+    //         displacementAngle = 180 - displacementAngle
+    //         finalAngle = `N ${displacementAngle} W`
+    //     } else if (displacementAngle < 0) {
+    //         displacementAngle = Math.abs(displacementAngle)
+    //         finalAngle = `W ${displacementAngle} N`
+    //     }
+        
+    // }
     return [resultantDisplacement, finalAngle]
 }
 
