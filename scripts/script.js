@@ -62,13 +62,14 @@ function totalDisplacement(...args) {
         return [displacements[0], angles[0]]
     }
 
-    console.log(`displacements -> ${displacements}\nangles -> ${angles}`)
 
     for (let i=0; i<displacements.length; i++) {
         if(angles[i].length > 1) {
-            let start = angles[i].split(" ")[0]
+            let start = angles[i].split(" ")[0].toUpperCase()
             let angle = angles[i].split(" ")[1]
-            let end = angles[i].split(" ")[2]
+            let end = angles[i].split(" ")[2].toUpperCase()
+
+            console.log(`displacements -> ${displacements}\nangles -> ${angles}`)
             console.log(`angle number -> ${angle}`)
 
             //switching angle direction around so it starts with N/S
@@ -106,7 +107,7 @@ function totalDisplacement(...args) {
             }
 
         } else if(angles[i].length === 1) {
-            let angle = angles[i]
+            let angle = angles[i].toUpperCase()
             finalAngle = angle
             let displacement = displacements[i]
             switch (angle) {
@@ -137,18 +138,18 @@ function totalDisplacement(...args) {
 
     if (y > 0) {
         if (x > 0) {
-            finalAngle = `N ${displacementAngle} E`
+            finalAngle = `[N ${displacementAngle}˚ E]`
         } else if (x < 0) {
             displacementAngle = Math.abs(displacementAngle)
-            finalAngle = `N ${displacementAngle} W`
+            finalAngle = `[N ${displacementAngle}˚ W]`
         }
 
     } else if (y < 0) {
         if (x > 0) {
             displacementAngle = Math.abs(displacementAngle)
-            finalAngle = `S ${displacementAngle} E`
+            finalAngle = `[S ${displacementAngle}˚ E]`
         } else if (x < 0) {
-            finalAngle = `S ${displacementAngle} W`
+            finalAngle = `[S ${displacementAngle}˚ W]`
             
         }
     }
@@ -421,6 +422,7 @@ let numOfVectors = document.getElementById('numOfVectors')
 let tdInputs = document.getElementById('tdInputs')
 
 numOfVectors.addEventListener('input', function addInputs(event){
+    document.getElementById('tdAnswer').innerHTML = ""
     while (tdInputs.firstChild !== null) {
         tdInputs.removeChild(tdInputs.lastChild)
     }
@@ -430,7 +432,7 @@ numOfVectors.addEventListener('input', function addInputs(event){
         for (let i=0; i<amtToAdd; i++) {
         let input = document.createElement('div')
         input.innerHTML = `<input type="number" min="0" step=".0001">
-                           <input type="text" step="1" id="angle" placeholder="E 60 S - format or just N/S/W/E if not at an angle"> `
+                           <input type="text" step="1" id="angle" placeholder="direction"> `
         input.class = 'displacement-input'
         tdInputs.appendChild(input)
         }
@@ -438,7 +440,7 @@ numOfVectors.addEventListener('input', function addInputs(event){
 })
 
 tdInputs.addEventListener("input", function handleDisplacements(event){
-    let inputs = tdInputs.querySelectorAll('.displacement-input')
+    let inputs = tdInputs.children
     let magnitudes = []
     let directions = []
 
@@ -456,7 +458,7 @@ tdInputs.addEventListener("input", function handleDisplacements(event){
 
     if (magnitudes.length === inputs.length && directions.length === inputs.length) {
         let answer = totalDisplacement(magnitudes, directions)
-        document.getElementById('tdAnswer').innerHTML = `${answer[0]}m ${answer[1]}`
+        document.getElementById('tdAnswer').innerHTML = `${answer[0]} units ${answer[1]}`
     }
 })
 

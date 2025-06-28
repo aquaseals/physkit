@@ -58,17 +58,43 @@
 
             <h3>Total Displacement</h3>
 
+            <p>When typing in the direction of the displacement follow this format to get the right answers! (otherwise answer is always 0 displacement lol)</p>
+            <p>Note: letters can be typed in upper or lower case!</p>
+            <ol>
+                <li>Type in Magnitude</li>
+
+                <li>
+                    <h4>Displacement at an Angle?</h4>
+        
+                <ol>
+                    <li>Type in starting direction, N/E/S/W, then space</li>
+                    <li>Type in the angle of the vector, space</li>
+                    <li>Type in the direction the angle is going towards form the starting point N/E/S/W</li>
+                </ol>
+                    <p>Note: Make sure your directions are perpendicular to each other (e.x. N 30 S is not an eligible angle)</p>
+                </li>
+
+                <li>
+                    <h4>Direction just N/E/S/W?</h4>
+                    <p>Type in direction, N/E/S/W</p>
+                </li>
+            </ol>
+
+            <p>Wrong: S30W or 90 SW or E 90 W</p>
+            <p>Correct: e 20 N or S 63.3 E or w 42 n </p>
+            
+
             <input type="number" min="2" id="numOfVectors" placeholder="how many magnitudes are you adding?">
 
             <div class="inputs" id="tdInputs">
                 <div class="displacement-input">
                 <input type="number" min="0" step=".0001">
-                <input type="text" step="1" id="angle" placeholder="E 60 S - format or just N/S/W/E if not at an angle"> 
+                <input type="text" step="1" id="angle" placeholder="direction"> 
                 </div>
 
                 <div class="displacement-input">
                 <input type="number" min="0" step=".0001">
-                <input type="text" step="1" id="angle" placeholder="E 60 S - format or just N/S/W/E if not at an angle"> 
+                <input type="text" step="1" id="angle" placeholder="direction"> 
                 </div>
             </div>
 
