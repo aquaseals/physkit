@@ -304,7 +304,7 @@ totalMags.addEventListener("input", function handleTotal(event){
     let inputs = totalMags.children
     let m = []
     for(let i=0; i<inputs.length; i++) {
-        if (inputs[i].value === 0) {
+        if (inputs[i].value === "") {
             console.log(`an input is empty, must be filled to calculate`)
         } else {
             m.push(inputs[i].value)
@@ -316,6 +316,28 @@ totalMags.addEventListener("input", function handleTotal(event){
         document.getElementById('totalAnswer').innerHTML = `${answer} in whatever unit they originally were`
     }
 })
+
+let deltaDiv = document.getElementById('delta')
+
+deltaDiv.addEventListener("input", function handleDelta(event){
+    let inputs = deltaDiv.children
+    let m = []
+    for(let i=0; i<inputs.length; i++) {
+        if (inputs[i].value === "") {
+            console.log(`an input is empty, must be filled to calculate`)
+        } else {
+            m.push(inputs[i].value)
+        }
+    }
+
+    if (m.length === inputs.length) {
+        let answer = delta(m[0], m[1])
+        document.getElementById('deltaAnswer').innerHTML = `${answer} in whatever unit they originally were`
+    }
+})
+
+
+
 
 
 // Dynamics Functions coming soon
