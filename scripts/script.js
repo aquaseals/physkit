@@ -98,33 +98,59 @@ function perTime(magnitude, direction, deltaTime) {
 }
 
 function kinematicEquation(d, t, vi, vf, a) {
+    let variables = [d, t, vi, vf, a]
     let missing = ''
-    if (typeOf(d) === 'String') {
+
+    let unknownIndex = whichVIsUnknown(variables)
+    let unknown = ''
+
+    switch (unknownIndex) {
+        case 0:
+            unknown = 'd'
+            break
+        case 1:
+            unknown = 't'
+            break
+        case 2:
+            unknown = 'vi'
+            break
+        case 3:
+            unknown = 'vf'
+            break
+        case 4:
+            unknown = 'a'
+            break
+    }
+
+    if (d === "m") {
         missing = 'd'
-    } else if (typeOf(t) === 'String') {
+        variables.splice(0, 1)
+        return kinematicEquation2(variables, unknown)
+    } else if (t === "m") {
         missing = 't'
-    } else if (typeOf(vi) === 'String') {
+        variables.splice(1, 1)
+        return kinematicEquation4(variables, unknown)
+    } else if (vi === "m") {
         missing = 'vi'
-    } else if (typeOf(vf) === 'String') {
+        variables.splice(2, 1)
+        return kinematicEquation5(variables, unknown)
+    } else if (vf === "m") {
         missing = 'vf'
-    } else if (typeOf(a) === 'String') {
+        variables.splice(3, 1)
+        return kinematicEquation3(variables, unknown)
+    } else if (a === "m") {
         missing = 'a'
+        variables.splice(4, 1)
+        return kinematicEquation1(variables, unknown)
     }
-
-    switch (missing) {
-        case 'd':
-            break
-        case 't':
-            break
-        case 'vi':
-            break
-        case 'vf':
-            break
-        case 'a':
-            break
-    }
-
 }
 
+function whichVIsUnknown(variableArray) {
+    for(let i=0; i<variableArray.length; i++) {
+        if(variableArray[i] === "?") {
+            return i
+        }
+    }
+}
 
 
