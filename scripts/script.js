@@ -193,14 +193,66 @@ function kinematicEquation3(variables, unknown) { // [d, t, vi, a]
         case 'd':
             return (vi*t) + (0.5*a*t*t)
         case 't':
-            return 
+            let x1 = zeros(0.5*a, vi, -1*d)[0]
+            let x2 = zeros(0.5*a, vi, -1*d)[1]
+            if (x1 > 0) {
+                return x1
+            } else if (x2 > 0) {
+                return x2
+            }
         case 'a':
-            return (2*(d/t))-vi
+            return (d-(vi*t))/(0.5*t*t)
         case 'vi':
-            return (2*(d/t))-vf
+            return (d - (0.5*a*t*t))/t
     }
 
 }
+
+function kinematicEquation4(variables, unknown) { // [d, vi, vf, a]
+    let d = variables[0]
+    let vi = variables[1]
+    let vf = variables[2]
+    let a = variables[3]
+
+    switch (unknown) {
+        case 'd':
+            return ((vf*vf)-(vi-vi))/2*a
+        case 'vf':
+            return Math.sqrt((vi*vi)+(2*a*d))
+        case 'a':
+            return ((vf*vf)-(vi-vi))/2*d
+        case 'vi':
+            return Math.sqrt((vf*vf) - (2*a*d))
+    }
+
+}
+
+function kinematicEquation5(variables, unknown) { // [d, t, vf, a]
+    let d = variables[0]
+    let t = variables[1]
+    let vf = variables[2]
+    let a = variables[3]
+
+    switch (unknown) {
+        case 'd':
+            return (vf*t) + (-0.5*a*t*t)
+        case 'vf':
+            return (d + (0.5*a*t*t))/t
+        case 'a':
+            return (d-(vf-t))/(-0.5*t*t)
+        case 't':
+            let x1 = zeros(0.5*a, vi*-1, d)[0]
+            let x2 = zeros(0.5*a, vi*-1, d)[1]
+            if (x1 > 0) {
+                return x1
+            } else if (x2 > 0) {
+                return x2
+            }
+    }
+
+}
+
+
 
 
 function whichVIsUnknown(variableArray) {
@@ -211,6 +263,16 @@ function whichVIsUnknown(variableArray) {
     }
 }
 
+function zeros(a, b, c) {
 
+    // calculating x values using quadratic formula
+    let x1 = round_user(((b*-1) + Math.sqrt((b**2)-(4*a*c))) / (2*a))
+    let x2 = round_user(((b*-1) - Math.sqrt((b**2)-(4*a*c))) / (2*a))
+
+    let zeros = `(${x1}, 0) (${x2}, 0)`
+    document.getElementById("quadratic_output").innerHTML = zeros
+    return [x1, x2]
+
+}
 
 
