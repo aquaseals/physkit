@@ -106,6 +106,7 @@ h2 {
 
 .subheading {
     text-decoration: underline;
+    font-size: 1.5vw;
 }
 
 #formulas img {
@@ -140,3 +141,8 @@ input {
 #kinematicEInputs input {
     width: 11vw;
 }
+
+#page p {
+    font-size: 1.2vw;
+}
+
