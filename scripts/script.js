@@ -277,14 +277,14 @@ function kinematicEquation3(variables, unknown) { // [d, t, vi, a]
         case 'd':
             return `${(vi*t) + (0.5*a*t*t)} units`
         case 't':
-            let x1 = zeros(0.5*a, vi, -1*d)[0]
-            let x2 = zeros(0.5*a, vi, -1*d)[1]
+            let x1 = zeros(0.5*a, vi, -d)[0]
+            let x2 = zeros(0.5*a, vi, -d)[1]
             if (x1 > 0 && x2 > 0) {
                 return [x1, x2]
             } else if (x1 > 0) {
-                return x1
+                return `${x1} unit time`
             } else if (x2 > 0) {
-                return x2
+                return `${x2} unit time`
             }
         case 'a':
             return `${(d-(vi*t))/(0.5*t*t)} units per unit time squared`
@@ -327,14 +327,14 @@ function kinematicEquation5(variables, unknown) { // [d, t, vf, a]
         case 'a':
             return `${(d-(vf*t))/(-0.5*t*t)} units per unit time squared`
         case 't':
-            let x1 = zeros(0.5*a, vf*-1, d)[0]
-            let x2 = zeros(0.5*a, vf*-1, d)[1]
+            let x1 = zeros(0.5*a, -vf, d)[0]
+            let x2 = zeros(0.5*a, -vf, d)[1]
             if (x1 > 0 && x2 > 0) {
                 return [x1, x2]
             } else if (x1 > 0) {
-                return x1
+                return `${x1} unit time`
             } else if (x2 > 0) {
-                return x2
+                return `${x2} unit time`
             }
     }
 
@@ -350,11 +350,16 @@ function whichVIsUnknown(variableArray) {
 
 function zeros(a, b, c) {
 
+    let d = (b**2) + (-4*a*c)
+    if (d < 0) {
+        return "no zeros found"
+    }
+
     // calculating x values using quadratic formula
     let x1 = ((b*-1) + Math.sqrt((b**2)-(4*a*c))) / (2*a)
     let x2 = ((b*-1) - Math.sqrt((b**2)-(4*a*c))) / (2*a)
 
-    let zeros = `(${x1}, 0) (${x2}, 0)`
+    //let zeros = `(${x1}, 0) (${x2}, 0)`
     
     return [x1, x2]
 
@@ -395,7 +400,7 @@ totalMags.addEventListener("input", function handleTotal(event){
 
     if (m.length === inputs.length) {
         let answer = total(m)
-        document.getElementById('totalAnswer').innerHTML = `${answer} units`
+        document.getElementById('totalAnswer').innerHTML = `= ${answer} units`
     }
 })
 
@@ -414,7 +419,7 @@ deltaDiv.addEventListener("input", function handleDelta(event){
 
     if (m.length === inputs.length) {
         let answer = delta(m[0], m[1])
-        document.getElementById('deltaAnswer').innerHTML = `${answer} units`
+        document.getElementById('deltaAnswer').innerHTML = `= ${answer} units`
     }
 })
 
@@ -431,7 +436,7 @@ numOfVectors.addEventListener('input', function addInputs(event){
         console.log(amtToAdd)
         for (let i=0; i<amtToAdd; i++) {
         let input = document.createElement('div')
-        input.innerHTML = `<input type="number" min="0" step=".0001">
+        input.innerHTML = `<input type="number" min="0" step=".0001" placeholder="magnitude">
                            <input type="text" step="1" id="angle" placeholder="direction"> `
         input.class = 'displacement-input'
         tdInputs.appendChild(input)
@@ -458,7 +463,7 @@ tdInputs.addEventListener("input", function handleDisplacements(event){
 
     if (magnitudes.length === inputs.length && directions.length === inputs.length) {
         let answer = totalDisplacement(magnitudes, directions)
-        document.getElementById('tdAnswer').innerHTML = `${answer[0]} units ${answer[1]}`
+        document.getElementById('tdAnswer').innerHTML = `= ${answer[0]} units ${answer[1]}`
     }
 })
 
@@ -477,7 +482,7 @@ aSpeed.addEventListener("input", function handleASpeed(event){
 
     if (m.length === inputs.length) {
         let answer = perTime(m[0], "", m[1])
-        document.getElementById('averageSAnswer').innerHTML = `${answer} units per unit time`
+        document.getElementById('averageSAnswer').innerHTML = `= ${answer} units per unit time`
     }
 })
 
@@ -496,7 +501,7 @@ aVelocity.addEventListener("input", function handleAVelocity(event){
 
     if (m.length === inputs.length) {
         let answer = perTime(m[0], m[1], m[2])
-        document.getElementById('averageVAnswer').innerHTML = `${answer[0]} units [${answer[1]}] per unit time`
+        document.getElementById('averageVAnswer').innerHTML = `= ${answer[0]} units [${answer[1]}] per unit time`
     }
 })
 
@@ -515,7 +520,7 @@ aAcceleration.addEventListener("input", function handleAAcceleration(event){
 
     if (m.length === inputs.length) {
         let answer = perTime(m[0], m[1], m[2])
-        document.getElementById('averageAAnswer').innerHTML = `${answer[0]} units [${answer[1]}] per unit time squared`
+        document.getElementById('averageAAnswer').innerHTML = `= ${answer[0]} units [${answer[1]}] per unit time squared`
     }
 })
 
@@ -534,21 +539,33 @@ kinematicEInputs.addEventListener("input", function handleKinematicE(event){
 
     if (m.length === inputs.length) {
         let variables = []
+        let mCount = 0
+        let unknownCount = 0
         for(let i=0; i<m.length; i++) {
-            try {
-                let temp = Number(m[i])
+            let temp = Number(m[i])
+            if (temp <= 0 || temp >= 0) {
                 variables.push(temp)
-            } catch (err) {
-                console.log(`not a number`)
+            } else {
                 variables.push(m[i])
+                if (m[i] === "?") {
+                    unknownCount++
+                } else {
+                    mCount++
+                }
             }
         }
-        let answer = kinematicEquation(variables[0], variables[1], variables[2], variables[3], variables[4])
-        if (typeof(answer) === "Array") { // checking for t1 and t2 answers
-            document.getElementById('kinematicEAnswer').innerHTML = `t1=${answer[0]} t2=${answer[1]}`
+        console.log(variables)
+        if (mCount === 1 && unknownCount === 1) {
+            let answer = kinematicEquation(variables[0], variables[1], variables[2], variables[3], variables[4])
+        if (typeof(answer) === 'object') { // checking for t1 and t2 answers
+            document.getElementById('kinematicEAnswer').innerHTML = `t1=${answer[0]} unit time t2=${answer[1]} unit time`
         } else {
-            document.getElementById('kinematicEAnswer').innerHTML = `${answer}`
+            document.getElementById('kinematicEAnswer').innerHTML = `= ${answer}`
         }
+        } else {
+            document.getElementById('kinematicEAnswer').innerHTML = `invalid input`
+        }
+        
     }
 })
 
