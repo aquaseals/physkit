@@ -50,6 +50,13 @@ function degreesToRadians(angle) {
     return (angle * (Math.PI /180))
 }
 
+function multiplyByN1(num) {
+    let result = -1 * num
+    if (result === -0) {
+        result = 0
+    }
+    return result
+}
 
 function totalDisplacement(...args) {
     let displacements = args[0]
@@ -277,14 +284,19 @@ function kinematicEquation3(variables, unknown) { // [d, t, vi, a]
         case 'd':
             return `${(vi*t) + (0.5*a*t*t)} units`
         case 't':
-            let x1 = zeros(0.5*a, vi, -d)[0]
-            let x2 = zeros(0.5*a, vi, -d)[1]
+            let x1 = zeros(0.5*a, vi, multiplyByN1(d))[0]
+            let x2 = zeros(0.5*a, vi, multiplyByN1(d))[1]
+            console.log(0.5*a, vi, multiplyByN1(d))
             if (x1 > 0 && x2 > 0) {
                 return [x1, x2]
             } else if (x1 > 0) {
                 return `${x1} unit time`
             } else if (x2 > 0) {
                 return `${x2} unit time`
+            } else if (x1 === 0 && x2 === 0){
+                return `0 unit time`
+            } else {
+                return `no solution`
             }
         case 'a':
             return `${(d-(vi*t))/(0.5*t*t)} units per unit time squared`
@@ -327,14 +339,18 @@ function kinematicEquation5(variables, unknown) { // [d, t, vf, a]
         case 'a':
             return `${(d-(vf*t))/(-0.5*t*t)} units per unit time squared`
         case 't':
-            let x1 = zeros(0.5*a, -vf, d)[0]
-            let x2 = zeros(0.5*a, -vf, d)[1]
+            let x1 = zeros(0.5*a, multiplyByN1(vf), d)[0]
+            let x2 = zeros(0.5*a, multiplyByN1(vf), d)[1]
             if (x1 > 0 && x2 > 0) {
                 return [x1, x2]
             } else if (x1 > 0) {
                 return `${x1} unit time`
             } else if (x2 > 0) {
                 return `${x2} unit time`
+            } else if (x1 === 0 && x2 === 0){
+                return `0 unit time`
+            } else {
+                return `no solution`
             }
     }
 
@@ -356,8 +372,8 @@ function zeros(a, b, c) {
     }
 
     // calculating x values using quadratic formula
-    let x1 = ((b*-1) + Math.sqrt((b**2)-(4*a*c))) / (2*a)
-    let x2 = ((b*-1) - Math.sqrt((b**2)-(4*a*c))) / (2*a)
+    let x1 = ((multiplyByN1(b)) + Math.sqrt((b**2)-(4*a*c))) / (2*a)
+    let x2 = ((multiplyByN1(b)) - Math.sqrt((b**2)-(4*a*c))) / (2*a)
 
     //let zeros = `(${x1}, 0) (${x2}, 0)`
     
@@ -559,9 +575,11 @@ kinematicEInputs.addEventListener("input", function handleKinematicE(event){
             let answer = kinematicEquation(variables[0], variables[1], variables[2], variables[3], variables[4])
         if (typeof(answer) === 'object') { // checking for t1 and t2 answers
             document.getElementById('kinematicEAnswer').innerHTML = `t1=${answer[0]} unit time t2=${answer[1]} unit time`
-        } else {
-            document.getElementById('kinematicEAnswer').innerHTML = `= ${answer}`
-        }
+            } else if (answer === NaN) {
+                document.getElementById('kinematicEAnswer').innerHTML = `no solution`
+            } else {
+                document.getElementById('kinematicEAnswer').innerHTML = `= ${answer}`
+            }
         } else {
             document.getElementById('kinematicEAnswer').innerHTML = `invalid input`
         }
