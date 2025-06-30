@@ -21,3 +21,8 @@ utility site to check answers for physics (SPH3U Ontario Grade 11 Physics) formu
 ## Getting Started
 Visit the live site at [Physkit](https://aquaseals.github.io/physkit/)
 
+## How can I host/run the website?
+1. Fork this repo
+2. Go to repo settings and set up a github page
+   OR
+3. Download the 'liver server' extension and open a live server on index.html
