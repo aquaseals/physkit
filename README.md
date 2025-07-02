@@ -26,3 +26,4 @@ Visit the live site at [Physkit](https://aquaseals.github.io/physkit/)
 2. Go to repo settings and set up a github page
    OR
 3. Download the 'liver server' extension and open a live server on index.html
+   
