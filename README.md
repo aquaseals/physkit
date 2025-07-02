@@ -4,8 +4,6 @@ utility site to check answers for physics (SPH3U Ontario Grade 11 Physics) formu
 ## Features
 - Formula Checker -> verify calculations easily
 - Covers all formulas from Kinematics in Ontario Grade 11 Physics
-
-## Currently Available
 - Kinematics - including kinematic equations and adding vectors in 2D
 
 ## Getting Started
