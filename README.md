@@ -4,8 +4,6 @@ utility site to check answers for physics (SPH3U Ontario Grade 11 Physics) formu
 ## Features
 - Formula Checker -> verify calculations easily
 - Covers all formulas from Kinematics in Ontario Grade 11 Physics
-
-## Currently Available
 - Kinematics - including kinematic equations and adding vectors in 2D
 
 ## Getting Started
@@ -16,3 +14,4 @@ Visit the live site at [Physkit](https://aquaseals.github.io/physkit/)
 2. Go to repo settings and set up a github page
    OR
 3. Download the 'live server' extension and open a live server on index.html
+4. 
