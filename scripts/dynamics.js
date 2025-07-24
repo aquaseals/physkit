@@ -1,9 +1,9 @@
 function fma(f, m, a) {
-    if (f === 0) {
+    if (f === "?") {
         return `Force is ${m*a} newtons`
-    } else if (m === 0) {
+    } else if (m === "?") {
         return `Mass is ${f/a} kg`
-    } else if (a === 0) {
+    } else if (a === "?") {
         return `Acceleration is ${f/m} meters per second squared`
     }
 }
@@ -11,27 +11,27 @@ function fma(f, m, a) {
 function universalGravitation(fg, m1, m2, d) {
     const gravitationalConstant = 6.67430 * (10**-11) // (N • m^2)/kg^2
     let answer;
-    if (fg === 0) {
+    if (fg === "?") {
         answer = (gravitationalConstant*m1*m2)/(d**2)
         return `Force is ${answer} newtons`
-    } else if (m1 === 0) {
+    } else if (m1 === "?") {
         answer = (fg*(d**2))/(m2*gravitationalConstant)
         return `First mass is ${answer} kg`
-    } else if (m2 === 0) {
+    } else if (m2 === "?") {
         answer = (fg*(d**2))/(m1*gravitationalConstant)
         return `Second mass is ${answer} kg`
-    } else if (d === 0) {
+    } else if (d === "?") {
         answer = Math.sqrt((gravitationalConstant*m1*m2)/(fg))
         return `Distance between the center of the two masses is ${answer} m`
     }
 }
 
 function frictionCoefficient(ff, fn, mu) {
-    if (ff === 0) {
+    if (ff === "?") {
         return `Friction force is ${mu*fn} newtons`
-    } else if (fn === 0) {
+    } else if (fn === "?") {
         return `Normal force is ${ff/mu} newtons`
-    } else if (mu === 0) {
+    } else if (mu === "?") {
         return `Coefficient of kinetic friction is ${ff/fn}`
     }
 
@@ -39,9 +39,9 @@ function frictionCoefficient(ff, fn, mu) {
 
 function fmg (fn, m) {
     const gravity = 9.8
-    if (m === 0) {
+    if (m === "?") {
         return `Mass is ${fn/gravity} kg`
-    } else if (fn === 0) {
+    } else if (fn === "?") {
         return `Normal force is ${m*gravity} newtons`
     }
 }
